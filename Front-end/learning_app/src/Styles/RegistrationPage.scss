@@ -1,0 +1,165 @@
+// RegistrationPage.scss
+$primary-color: #2563eb;
+$text-color: #2d3748;
+$border-color: #e2e8f0;
+$transition-time: 0.3s;
+
+.registration-container {
+  display: flex;
+  height: 100vh;
+
+  .left-stripe,
+  .right-stripe {
+    flex: 1;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .center-stripe {
+    flex: 0 0 45%;
+    max-width: 700px;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+  }
+}
+
+.registration-form {
+  width: 100%;
+  max-width: 500px;
+
+  h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: $text-color;
+    font-size: 2rem;
+    font-weight: 600;
+  }
+}
+
+.name-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.form-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+
+  input {
+    width: 100%;
+    height: 50px;
+    padding: 1rem;
+    border: 1px solid $border-color;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all $transition-time ease;
+
+    &:focus {
+      outline: none;
+      border-color: $primary-color;
+      box-shadow: 0 0 0 2px rgba($primary-color, 0.1);
+    }
+
+    &:focus + label,
+    &:not(:placeholder-shown) + label {
+      transform: translateY(-120%) scale(0.9);
+      color: $primary-color;
+    }
+  }
+
+  label {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: lighten($text-color, 30%);
+    pointer-events: none;
+    transition: all $transition-time ease;
+    background: white;
+    padding: 0 0.5rem;
+  }
+}
+
+.password-toggle {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: lighten($text-color, 30%);
+
+  &:hover {
+    color: $primary-color;
+  }
+}
+
+.register-button {
+  width: 100%;
+  padding: 1rem;
+  background: $primary-color;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color $transition-time ease;
+  margin-top: 1rem;
+
+  &:hover {
+    background: darken($primary-color, 10%);
+  }
+}
+
+.form-footer {
+  margin-top: 2rem;
+  text-align: center;
+
+  a {
+    color: $primary-color;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+.left-stripe {
+  background-image: url("../Assets/img/Reg_img1.jpg");
+}
+.right-stripe {
+  background-image: url("../Assets/img/Reg_img3.jpg");
+}
+
+@media (max-width: 1024px) {
+  .registration-container {
+    .left-stripe,
+    .right-stripe {
+      display: none;
+    }
+
+    .center-stripe {
+      flex: 1;
+      padding: 2rem;
+    }
+  }
+}
+
+@media (max-width: 480px) {
+  .registration-form {
+    padding: 1rem;
+  }
+}
