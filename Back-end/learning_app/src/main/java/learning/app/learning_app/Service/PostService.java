@@ -22,7 +22,7 @@ public class PostService {
     @Autowired
     private UsersRepository usersRepo;
 
-    // ✅ Create a post
+    //  Create a post
     public Post createPost(String email, PostDTO dto) {
         Users user = usersRepo.findByEmail(email).orElseThrow();
         Post post = new Post();
@@ -33,7 +33,7 @@ public class PostService {
         return postsRepo.save(post);
     }
 
-    // ✅ Like a post
+    //  Like a post
     public void likePost(ObjectId postId, String email) {
         Users user = usersRepo.findByEmail(email).orElseThrow();
         Post post = postsRepo.findById(postId).orElseThrow();
@@ -41,17 +41,17 @@ public class PostService {
         postsRepo.save(post);
     }
 
-    // ✅ Get all posts
+    //  Get all posts
     public List<Post> getAllPosts() {
         return postsRepo.findAll();
     }
 
-    // ✅ Get post by ID
+    // Get post by ID
     public Post getPostById(String id) {
         return postsRepo.findById(new ObjectId(id)).orElseThrow();
     }
 
-    // ✅ Update a post
+    // Update a post
     public Post updatePost(String postId, PostDTO dto, String email) {
         Post post = postsRepo.findById(new ObjectId(postId)).orElseThrow();
         Users user = usersRepo.findByEmail(email).orElseThrow();
@@ -65,7 +65,7 @@ public class PostService {
         return postsRepo.save(post);
     }
 
-    // ✅ Delete a post
+    //  Delete a post
     public void deletePost(String postId, String email) {
         Post post = postsRepo.findById(new ObjectId(postId)).orElseThrow();
         Users user = usersRepo.findByEmail(email).orElseThrow();
