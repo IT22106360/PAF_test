@@ -25,13 +25,8 @@ public class PostService {
     @Autowired
     private UsersRepository usersRepo;
 
-<<<<<<< Updated upstream
-    // ✅ Create a post
-    public Post createPost(String email, PostDTO dto) {
-=======
     // Create a post
     public PostResponseDTO createPost(String email, PostCreateDTO dto) {
->>>>>>> Stashed changes
         Users user = usersRepo.findByEmail(email).orElseThrow();
         Post post = new Post();
         post.setContent(dto.getContent());
@@ -43,12 +38,6 @@ public class PostService {
         return mapToDTO(savedPost);
     }
 
-<<<<<<< Updated upstream
-    // ✅ Like a post
-    public void likePost(ObjectId postId, String email) {
-        Users user = usersRepo.findByEmail(email).orElseThrow();
-        Post post = postsRepo.findById(postId).orElseThrow();
-=======
     public void likePost(String postId, String email) {
         Users user = usersRepo.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
@@ -56,25 +45,10 @@ public class PostService {
         Post post = postsRepo.findById(new ObjectId(postId))
                 .orElseThrow(() -> new RuntimeException("Post not found with id: " + postId));
     
->>>>>>> Stashed changes
         post.getLikedBy().add(user.getId());
         postsRepo.save(post);
     }
 
-<<<<<<< Updated upstream
-    // ✅ Get all posts
-    public List<Post> getAllPosts() {
-        return postsRepo.findAll();
-    }
-
-    // ✅ Get post by ID
-    public Post getPostById(String id) {
-        return postsRepo.findById(new ObjectId(id)).orElseThrow();
-    }
-
-    // ✅ Update a post
-    public Post updatePost(String postId, PostDTO dto, String email) {
-=======
     // Get all posts
     public List<PostResponseDTO> getAllPosts() {
         return postsRepo.findAll()
@@ -91,7 +65,6 @@ public class PostService {
 
     // Update a post
     public PostResponseDTO updatePost(String postId, PostCreateDTO dto, String email) {
->>>>>>> Stashed changes
         Post post = postsRepo.findById(new ObjectId(postId)).orElseThrow();
         Users user = usersRepo.findByEmail(email).orElseThrow();
 
@@ -105,11 +78,7 @@ public class PostService {
         return mapToDTO(updated);
     }
 
-<<<<<<< Updated upstream
-    // ✅ Delete a post
-=======
     // Delete a post
->>>>>>> Stashed changes
     public void deletePost(String postId, String email) {
         Post post = postsRepo.findById(new ObjectId(postId)).orElseThrow();
         Users user = usersRepo.findByEmail(email).orElseThrow();
