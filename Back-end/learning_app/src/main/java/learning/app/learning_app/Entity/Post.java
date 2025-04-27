@@ -24,5 +24,4 @@ public class Post {
 
     private List<ObjectId> commentIds = new ArrayList<>();
 
-    // Getters and Setters
 }

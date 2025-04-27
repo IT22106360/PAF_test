@@ -15,44 +15,58 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import learning.app.learning_app.Entity.Post;
+//import learning.app.learning_app.Entity.Post;
 import learning.app.learning_app.Service.PostService;
-import learning.app.learning_app.dto.PostDTO;
+import learning.app.learning_app.dto.PostCreateDTO;
+import learning.app.learning_app.dto.PostResponseDTO;
+
 
 @RestController
 @RequestMapping("/api/posts")
 public class PostController {
+
     @Autowired
     private PostService postService;
 
+    // Create a new post
     @PostMapping
-    public ResponseEntity<?> createPost(@RequestBody PostDTO dto, Principal principal) {
-        return ResponseEntity.ok(postService.createPost(principal.getName(), dto));
+    public ResponseEntity<PostResponseDTO> createPost(@RequestBody PostCreateDTO dto, Principal principal) {
+        PostResponseDTO post = postService.createPost(principal.getName(), dto);
+        return ResponseEntity.ok(post);
     }
 
+    // Like a post
     @PostMapping("/{id}/like")
-    public ResponseEntity<?> likePost(@PathVariable String id, Principal principal) {
-        postService.likePost(new ObjectId(id), principal.getName());
-        return ResponseEntity.ok("Liked");
+    public ResponseEntity<String> likePost(@PathVariable String id, Principal principal) {
+        postService.likePost(id, principal.getName());
+        return ResponseEntity.ok("Liked successfully!");
     }
+
+    // Get all posts
     @GetMapping
-    public List<Post> getAllPosts() {
-        return postService.getAllPosts();
+    public ResponseEntity<List<PostResponseDTO>> getAllPosts() {
+        List<PostResponseDTO> posts = postService.getAllPosts();
+        return ResponseEntity.ok(posts);
     }
 
+    // Get a single post
     @GetMapping("/{id}")
-    public Post getPost(@PathVariable String id) {
-        return postService.getPostById(id);
+    public ResponseEntity<PostResponseDTO> getPost(@PathVariable String id) {
+        PostResponseDTO post = postService.getPostById(id);
+        return ResponseEntity.ok(post);
     }
 
+    // Delete a post
     @DeleteMapping("/{id}")
-    public void deletePost(@PathVariable String id, Principal principal) {
+    public ResponseEntity<String> deletePost(@PathVariable String id, Principal principal) {
         postService.deletePost(id, principal.getName());
+        return ResponseEntity.ok("Post deleted successfully!");
     }
 
+    // Update a post
     @PutMapping("/{id}")
-    public Post updatePost(@PathVariable String id, @RequestBody PostDTO dto, Principal principal) {
-        return postService.updatePost(id, dto, principal.getName());
+    public ResponseEntity<PostResponseDTO> updatePost(@PathVariable String id, @RequestBody PostCreateDTO dto, Principal principal) {
+        PostResponseDTO updatedPost = postService.updatePost(id, dto, principal.getName());
+        return ResponseEntity.ok(updatedPost);
     }
-
 }

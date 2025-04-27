@@ -37,13 +37,13 @@ public class UserController {
         return ResponseEntity.ok(usersManagementService.refreshToken(req));
     }
 
-    @GetMapping("/admin/get-all-users")
+    @GetMapping("/adminuser/get-all-users")
     public ResponseEntity<UserDTO> getAllUsers(){
         return ResponseEntity.ok(usersManagementService.getAllUsers());
 
     }
 
-    @GetMapping("/admin/get-users/{userId}")
+    @GetMapping("/adminuser/get-users/{userId}")
     public ResponseEntity<UserDTO> getUSerByID(@PathVariable ObjectId userId){
         return ResponseEntity.ok(usersManagementService.getUsersById(userId));
 
