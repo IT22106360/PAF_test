@@ -1,0 +1,207 @@
+//@import "UserHomePage.scss";
+
+$primary-color: #2563eb;
+$secondary-color: #3b82f6;
+$text-color: #1f2937;
+$background-color: #f8fafc;
+$sidebar-width: 240px;
+$border-color: #dcdcdc;
+$light-gray: #f3f2ef;
+
+.feed-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: $primary-color;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.no-posts {
+  text-align: center;
+  color: $text-color;
+}
+
+.postcard {
+  background-color: white;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  margin-bottom: 1rem;
+  max-width: 40rem;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+
+  &__likes {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    color: #6b7280;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    .like-icon {
+      color: #2563eb;
+      fill: currentColor;
+    }
+  }
+
+  &__header {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .postcard__user {
+      display: flex;
+      gap: 0.75rem;
+
+      .avatar {
+        width: 2.5rem;
+        height: 2.5rem;
+        border-radius: 9999px;
+      }
+
+      .username {
+        font-weight: 600;
+        font-size: 0.875rem;
+        color: #111827;
+        cursor: pointer;
+        line-height: 0.2; /* Adjust line height for better spacing control */
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .usertitle,
+      .timestamp {
+        font-size: 0.75rem;
+        color: #6b7280;
+        display: flex;
+        align-items: center;
+        margin: 0;
+        padding: 0;
+        line-height: 1.3; /* Adjust line height for better spacing control */
+      }
+
+      .globe {
+        margin-left: 0.25rem;
+      }
+    }
+
+    .more-btn {
+      color: #6b7280;
+      border-radius: 9999px;
+      background: none; // ⬅ removes default button bg
+      border: none; // ⬅ removes default border
+
+      &:hover {
+        color: #374151;
+        background-color: #f3f4f6;
+      }
+    }
+  }
+
+  &__content {
+    padding: 0 1rem 0.5rem;
+    font-size: 0.875rem;
+    color: #1f2937;
+    white-space: pre-wrap;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Limit to 3 lines */
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+
+  &__content.expanded {
+    -webkit-line-clamp: unset; /* Remove limit when expanded */
+    line-clamp: unset;
+  }
+
+  //btn to limit content size
+  .see-more-btn {
+    background: none;
+    border: none;
+    color: #0a66c2; /* LinkedIn blue */
+    cursor: pointer;
+    font-size: 0.875rem;
+    margin-top: 5px;
+    padding: 0 1rem 0.5rem;
+  }
+
+  .postcard__content.expanded {
+    -webkit-line-clamp: unset; /* Remove limit when expanded */
+  }
+
+  &__image img {
+    aspect-ratio: 16/9; /* looks good for images/videos */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: #f3f4f6;
+    overflow: hidden;
+  }
+  //action btn section
+  &__actions {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0.5rem 0.5rem;
+
+    .action-btn {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+      color: #4b5563;
+      font-size: 0.875rem;
+      font-weight: 500;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.375rem;
+      background: none; // ⬅ removes default button bg
+      border: none; // ⬅ removes default border
+      cursor: pointer; // ⬅ makes it clickable
+      transition: background-color 0.15s ease-in-out;
+
+      .action-btn.like.liked {
+        color: #007bff; /* Blue color when liked */
+      }
+
+      &:hover {
+        background-color: #f3f4f6;
+      }
+    }
+  }
+
+  //summary section
+  .postcard__summary {
+    padding: 0 1rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: #6b7280;
+    margin-top: 0.5rem;
+
+    .likes {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+
+      .like-badge {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 1rem;
+        height: 1rem;
+        background-color: #2563eb;
+        color: white;
+        border-radius: 9999px;
+      }
+    }
+  }
+
+  &__comments {
+    padding: 1rem;
+  }
+}

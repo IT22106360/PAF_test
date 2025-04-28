@@ -38,9 +38,13 @@ const User_Home_Page = () => {
         </div>
 
         <nav className="sidebar-nav">
-          <a href="#dashboard" className="active">
+          <a href="/Home" className="active">
             <FiBookOpen className="icon" />
             My Courses
+          </a>
+          <a href="/Feed">
+            <FiBookOpen className="icon" />
+            Feed
           </a>
           <a href="#progress">
             <FiBarChart className="icon" />
