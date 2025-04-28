@@ -35,26 +35,27 @@ public class PostController {
         return ResponseEntity.ok(post);
     }
 
-    // Like a post
-    @PostMapping("/{id}/like")
-    public ResponseEntity<String> likePost(@PathVariable String id, Principal principal) {
-        postService.likePost(id, principal.getName());
-        return ResponseEntity.ok("Liked successfully!");
-    }
 
     // Get all posts
     @GetMapping
-    public ResponseEntity<List<PostResponseDTO>> getAllPosts() {
-        List<PostResponseDTO> posts = postService.getAllPosts();
+    public ResponseEntity<List<PostResponseDTO>> getAllPosts(Principal principal) {
+        List<PostResponseDTO> posts = postService.getAllPosts(principal.getName());
         return ResponseEntity.ok(posts);
     }
 
     // Get a single post
     @GetMapping("/{id}")
-    public ResponseEntity<PostResponseDTO> getPost(@PathVariable String id) {
-        PostResponseDTO post = postService.getPostById(id);
+    public ResponseEntity<PostResponseDTO> getPost(@PathVariable String id, Principal principal) {
+        PostResponseDTO post = postService.getPostById(id, principal.getName());
         return ResponseEntity.ok(post);
     }
+
+    // Update a post
+    @PutMapping("/{id}")
+    public ResponseEntity<PostResponseDTO> updatePost(@PathVariable String id, @RequestBody PostCreateDTO dto, Principal principal) {
+        PostResponseDTO updatedPost = postService.updatePost(id, dto, principal.getName());
+        return ResponseEntity.ok(updatedPost);
+    }    
 
     // Delete a post
     @DeleteMapping("/{id}")
@@ -63,10 +64,19 @@ public class PostController {
         return ResponseEntity.ok("Post deleted successfully!");
     }
 
-    // Update a post
-    @PutMapping("/{id}")
-    public ResponseEntity<PostResponseDTO> updatePost(@PathVariable String id, @RequestBody PostCreateDTO dto, Principal principal) {
-        PostResponseDTO updatedPost = postService.updatePost(id, dto, principal.getName());
-        return ResponseEntity.ok(updatedPost);
+
+
+    // Like a post
+    @PostMapping("/{id}/like")
+    public ResponseEntity<String> likePost(@PathVariable String id, Principal principal) {
+        postService.likePost(id, principal.getName());
+        return ResponseEntity.ok("Liked successfully!");
+    }
+
+    // Unlike a post
+    @DeleteMapping("/{id}/like")
+    public ResponseEntity<String> unlikePost(@PathVariable String id, Principal principal) {
+        postService.likePost(id, principal.getName()); // Same service method for toggling
+        return ResponseEntity.ok("Unliked successfully!");
     }
 }

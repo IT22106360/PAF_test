@@ -45,22 +45,32 @@ public class PostService {
         Post post = postsRepo.findById(new ObjectId(postId))
                 .orElseThrow(() -> new RuntimeException("Post not found with id: " + postId));
     
-        post.getLikedBy().add(user.getId());
+        // Toggle like/unlike
+        if (post.getLikedBy().contains(user.getId())) {
+            post.getLikedBy().remove(user.getId()); // Unlike the post
+        } else {
+            post.getLikedBy().add(user.getId()); // Like the post
+        }
         postsRepo.save(post);
     }
 
     // Get all posts
-    public List<PostResponseDTO> getAllPosts() {
+    public List<PostResponseDTO> getAllPosts(String email) {
+        Users currentUser = usersRepo.findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+
         return postsRepo.findAll()
                         .stream()
-                        .map(this::mapToDTO)
+                        .map(post -> mapToDTO(post, currentUser.getId()))
                         .toList();
     }
 
     // Get post by ID
-    public PostResponseDTO getPostById(String id) {
+    public PostResponseDTO getPostById(String id, String email) {
         Post post = postsRepo.findById(new ObjectId(id)).orElseThrow();
-        return mapToDTO(post);
+        Users currentUser = usersRepo.findByEmail(email)
+        .orElseThrow(() -> new RuntimeException("User not found with email: " + email));
+        return mapToDTO(post, currentUser.getId());
     }
 
     // Update a post
@@ -90,13 +100,14 @@ public class PostService {
         postsRepo.delete(post);
     }
 
- private PostResponseDTO mapToDTO(Post post) {
-    PostResponseDTO dto = new PostResponseDTO();
+    private PostResponseDTO mapToDTO(Post post, ObjectId currentUserId) {
+        PostResponseDTO dto = new PostResponseDTO();
     dto.setId(post.getId().toHexString());
     dto.setContent(post.getContent());
     dto.setMediaUrl(post.getMediaUrl());
     dto.setCreatedAt(post.getCreatedAt().toString());
     dto.setLikesCount(post.getLikedBy().size());
+    dto.setLikedByUser(post.getLikedBy().contains(currentUserId));
 
     Users user = usersRepo.findById(post.getUserId())
             .orElseThrow(() -> new RuntimeException("User not found with id: " + post.getUserId()));

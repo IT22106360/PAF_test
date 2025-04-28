@@ -11,4 +11,6 @@ public class PostResponseDTO {
     private String visibility;
     private UserShortDTO user;
     private int likesCount;
+    private boolean likedByUser;
+
 }
